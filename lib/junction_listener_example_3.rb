@@ -6,9 +6,9 @@ class NrPollerPoller
 
   def initialize
 
-    @hostname = 'datafeeds.nationalrail.co.uk'
-    @username = 'd3user'
-    @password = 'd3password'
+    @hostname = 'tcp://datafeeds.networkrail.co.uk'
+    @username = 'b_seven@yahoo.co.uk'
+    @password = 'Password123!'
     puts "Stomp consumer for Network Rail Open Data Distribution Service"
     @uuid = 'D36f743bd6-a870-4f9c-9424-aa1b901642b3'
 
@@ -20,7 +20,7 @@ class NrPollerPoller
   def run
 
     client_headers = { "accept-version" => "1.1", "heart-beat" => "5000,10000", "client-id" => Socket.gethostname, "host" => @hostname }
-    client_hash = { :hosts => [ { :login => @username, :passcode => @password, :host => @hostname, :port => 61613, :ssl => false } ], :connect_headers => client_headers }
+    client_hash = { :hosts => [ { :login => @username, :passcode => @password, :host => @hostname, :port => 61618, :ssl => false } ], :connect_headers => client_headers }
     puts client_hash
     client = Stomp::Client.new(client_hash)
 
@@ -31,12 +31,11 @@ class NrPollerPoller
 
     puts "Connected to #{client.connection_frame().headers['server']} server with STOMP #{client.connection_frame().headers['version']}"
     puts Socket.gethostname
-    queue = "/queue/#{@uuid}"
+
     # Subscribe to the RTPPM topic and process messages
 
-    client.subscribe(queue, { 'id' => @uuid, 'ack' => 'client' }) do |msg|
+    client.subscribe("/queue/#{@uuid}", { 'id' => client.uuid(), 'ack' => 'client', 'activemq.subscriptionName' => Socket.gethostname + '-RTPPM' }) do |msg|
 
-      newfile = File.open("testfile.txt","w"){|file| file.write(msg.body)}
       puts msg.body
       client.acknowledge(msg, msg.headers)
 
