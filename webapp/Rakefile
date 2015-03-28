@@ -1,0 +1,4 @@
+require 'sinatra/asset_pipeline/task'
+require './sinatraapp'
+
+Sinatra::AssetPipeline::Task.define! App

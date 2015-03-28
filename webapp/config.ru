@@ -1,3 +1,3 @@
-require './ConnectedCar'
+require './App'
 #run ConnectedCar
 run Sinatra::Application

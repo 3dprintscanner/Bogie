@@ -16,16 +16,23 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.0)
     builder (3.2.2)
+    coffee-script (2.3.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.9.1)
+    execjs (2.4.0)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     hike (1.2.3)
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
-    jsmin (1.0.1)
     json (1.8.2)
     minitest (5.5.1)
     multi_json (1.11.0)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -35,6 +42,7 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5)
     rake (10.4.2)
+    sass (3.4.13)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -42,16 +50,24 @@ GEM
     sinatra-activerecord (2.0.5)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
-    sinatra-assetpack (0.3.3)
-      jsmin
-      rack-test
-      sinatra
-      tilt (>= 1.3.0, < 2.0)
+    sinatra-asset-pipeline (0.7.0)
+      coffee-script (~> 2.3)
+      rake (~> 10.0)
+      sass (~> 3.1)
+      sinatra (~> 1.4)
+      sprockets (~> 2.12)
+      sprockets-helpers (~> 1.1)
+      sprockets-sass (~> 1.2)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sprockets-helpers (1.1.0)
+      sprockets (~> 2.0)
+    sprockets-sass (1.3.1)
+      sprockets (~> 2.0)
+      tilt (~> 1.1)
     sqlite3 (1.3.10)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -62,12 +78,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  coffee-script-source
+  execjs
+  faraday
   httparty
+  multi_json (~> 1.0)
   rack (>= 1.1, < 1.6)
   racksh
   rake
+  sass (~> 3.1)
   sinatra
   sinatra-activerecord
-  sinatra-assetpack
+  sinatra-asset-pipeline
   sprockets
   sqlite3
